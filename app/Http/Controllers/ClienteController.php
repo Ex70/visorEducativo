@@ -5,31 +5,26 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use Illuminate\Http\Request;
 
-class ClienteController extends Controller
-{
+class ClienteController extends Controller{
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //
-        return "Lista de Clientes";
+    public function index(){
+        $clientes = Client::all();
+        return view('sistema.listCliente',compact('clientes'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
+    public function create(){
         return view('sistema.addCliente');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request){
         $validacion = $request->validate([
             'dni' => 'required|numeric|unique:clients,dni|min:10',
             'apellido' => 'required|string|max:75',
@@ -55,32 +50,27 @@ class ClienteController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
+    public function show(string $id){
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
+    public function edit(string $id){
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
+    public function update(Request $request, string $id){
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
+    public function destroy(string $id){
+        $cliente = Client::find($id);
+        $cliente->delete();
+        return back();
     }
 }
