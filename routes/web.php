@@ -3,6 +3,8 @@
 use App\Http\Controllers\ArchivoController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\PermisoController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,6 +36,8 @@ Route::middleware([
     // Route::get('/archivos',[ArchivoController::class, 'index']);
     Route::resource('/archivos',ArchivoController::class)->names('archivo');
     Route::post('/upload-file',[ArchivoController::class, 'fileUpload'])->name('fileUpload');
+    Route::resource('/permisos',PermisoController::class)->names('permisos');
+    Route::resource('/roles',RoleController::class)->names('roles');
     Route::resource('/client',ClienteController::class)->names('cliente');
     Route::get('archivo/{id}', [ArchivoController::class, 'documentos'])->name('visualizar');
 });
