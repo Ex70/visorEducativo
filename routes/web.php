@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArchivoController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\UsuarioController;
@@ -29,7 +30,12 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
     Route::get('/profile',[UsuarioController::class, 'profile']);
+    Route::get('/subirArchivos',[ArchivoController::class, 'createForm']);
+    // Route::get('/archivos',[ArchivoController::class, 'index']);
+    Route::resource('/archivos',ArchivoController::class)->names('archivo');
+    Route::post('/upload-file',[ArchivoController::class, 'fileUpload'])->name('fileUpload');
     Route::resource('/client',ClienteController::class)->names('cliente');
+    Route::get('archivo/{id}', [ArchivoController::class, 'documentos'])->name('visualizar');
 });
 
 Route::get('/auth/redirect',[AuthController::class, 'redirect']);
